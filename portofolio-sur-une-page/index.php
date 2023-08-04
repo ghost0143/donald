@@ -1,3 +1,28 @@
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['envoi'])){
+  $receiving_email_address = 'greatnesskossidonald@gmail.com';
+
+  $name = $_POST['name'];
+  $email = $_POST['email'];
+  $subject = $_POST['subjet'];
+  $message = $_POST['message'];
+
+  $mailheader = "Name: " . $name .
+  "\r\n Email: " . $email .
+  "\r\n Sujet: " . $subject .
+  "\r\n Message: " . $message . "\r\n";
+
+  if (mail($receiving_email_address, $subject, $message, $mailheader)){
+    header('location: index.php');
+  } else {
+    echo "Failed to send email.";
+  }
+  
+  
+
+
+}
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -330,7 +355,7 @@
         </div>
       </div>
     </section>
-    <form class="contact-form" action="contact_form_handler.php" method="POST" id="contact">
+    <form class="contact-form" action="" method="POST" id="contact">
       <section class = "contact container">
         <div class = "title">
           <h2>contact</h2>
@@ -343,7 +368,7 @@
   
         <div class = "row">
           <div class = "col-left">
-            <h2>feel free to ask us!</h2>
+            <h2>Avez vous des question?</h2>
             <p class = "text">Bienvenue ! Notre équipe est là pour répondre à vos questions et vous offrir une assistance de premier ordre. N'hésitez pas à nous contacter, nous sommes impatients de vous aider !.</p>
   
             <div class = "contact-info">
@@ -373,14 +398,14 @@
           </div>
   
           <div class = "col-right">
-            <form class = "contact-form">
+            <form class = "contact-form" method="POST">
               <div class = "form-group">
-                <input type = "text" name="name" placeholder="your name" required>
-                <input type = "email" name="email"  placeholder="your email" required>
-                <input type = "text" name="subject" placeholder="your subject"  required>
+                <input type = "text" name="name" placeholder="Nom" required>
+                <input type = "email" name="email"  placeholder="Email" required>
+                <input type = "text" name="subjet" placeholder="Subjet"  required>
               </div>
-              <textarea name="message" rows = "5"></textarea>
-              <button type = "submit" class = "btn">send message</button>
+              <textarea name="message" rows = "5" placeholder="Votre message"></textarea>
+              <input type="submit" class="btn" value="Envoyer" name="envoi">
             </form>
           </div>
         </div>
